@@ -9,11 +9,24 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Cairo:wght@400;700&display=swap');
     :root { --primary-pink: #FF69B4; --deep-pink: #FF1493; }
+    
     .stApp { background: linear-gradient(180deg, #FFF0F5 0%, #FFFFFF 100%); font-family: 'Cairo', sans-serif; }
     h1 { font-family: 'Fredoka One', cursive !important; color: var(--deep-pink) !important; text-align: center; }
     [data-testid="stSidebar"] { background-color: white !important; border-right: 4px solid var(--primary-pink); }
     .stButton>button { width: 100%; background-color: var(--primary-pink); color: white; border-radius: 30px; border: 3px solid white; font-weight: bold; }
     .stButton>button:hover { background-color: var(--deep-pink) !important; transform: translateY(-3px); }
+
+    /* التعديلات الذكية للجوال */
+    @media (max-width: 768px) {
+        /* تصغير حجم الخطوط في العناوين لضمان عدم خروجها عن الشاشة */
+        h1 { font-size: 28px !important; }
+        
+        /* تقليل الهوامش الجانبية في الجوال */
+        .block-container { padding-left: 1rem !important; padding-right: 1rem !important; }
+        
+        /* ضمان ظهور الأزرار بشكل مريح */
+        .stButton { margin-bottom: 5px !important; }
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -61,7 +74,6 @@ Skills & Languages:
 # 4. إعداد الـ API
 GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=GROQ_API_KEY)
-
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant", "content": "Hello! I'm Marah's Assistant. ✨"}]
 
