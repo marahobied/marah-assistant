@@ -80,10 +80,20 @@ if "messages" not in st.session_state:
 def get_ai_response(user_query):
     st.session_state.messages.append({"role": "user", "content": user_query})
     try:
-        completion = client.chat.completions.create(
+       completion = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
-            messages=[{"role": "system", "content": f"You are Marah's Assistant. Answer based on: {cv_info}. Speak in 3rd person. English only."}, 
-                      *[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]],
+            messages=[
+                {
+                    "role": "system", 
+                    "content": (
+                        f"You are Marah's Assistant. Answer based strictly on: {cv_info}. "
+                        "Speak in the 3rd person. English only. "
+                        "IMPORTANT: Do not share any sensitive personal information not explicitly provided in the CV info (like home address details beyond what's listed, or private contact info beyond the professional email/phone provided). "
+                        "If a user asks for private information not related to professional/academic background, politely decline."
+                    )
+                }, 
+                *[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
+            ],
             temperature=0.1
         )
         response = completion.choices[0].message.content
