@@ -16,15 +16,9 @@ st.markdown("""
     .stButton>button { width: 100%; background-color: var(--primary-pink); color: white; border-radius: 30px; border: 3px solid white; font-weight: bold; }
     .stButton>button:hover { background-color: var(--deep-pink) !important; transform: translateY(-3px); }
 
-    /* التعديلات الذكية للجوال */
     @media (max-width: 768px) {
-        /* تصغير حجم الخطوط في العناوين لضمان عدم خروجها عن الشاشة */
         h1 { font-size: 28px !important; }
-        
-        /* تقليل الهوامش الجانبية في الجوال */
         .block-container { padding-left: 1rem !important; padding-right: 1rem !important; }
-        
-        /* ضمان ظهور الأزرار بشكل مريح */
         .stButton { margin-bottom: 5px !important; }
     }
     </style>
@@ -80,7 +74,7 @@ if "messages" not in st.session_state:
 def get_ai_response(user_query):
     st.session_state.messages.append({"role": "user", "content": user_query})
     try:
-       completion = client.chat.completions.create(
+        completion = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
                 {
@@ -101,7 +95,7 @@ def get_ai_response(user_query):
     except Exception as e:
         st.error(f"Error: {e}")
 
-# 5. القائمة الجانبية (تم توسيط الصورة)
+# 5. القائمة الجانبية
 with st.sidebar:
     st.write("") 
     col1, col2, col3 = st.columns([1, 2, 1])
